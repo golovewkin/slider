@@ -1,14 +1,25 @@
 (function ($) {
 
     //============wow init===========================================
-    new WOW().init();
+
     //============wow init===========================================
 
 
 //==================================slider =================================
 
 
-    $.fn.slider = function (options) {
+    $.fn.sliderIconate = function (options) {
+
+        new WOW().init();
+
+
+        //var settings = $.extend( {
+        //    'location'         : 'top',
+        //    'background-color' : 'blue'
+        //}, options);
+        //
+
+
         var sliderContent = $('.slider-content');
         var sliderData = $('.slider-data');
         var countSlide = $('.slider-data > div').length;
@@ -30,12 +41,8 @@
         }, 7000);
 
         // Создаете настройки по умолчанию, которые расширяют ваши опции
-        //var settings = $.extend( {
-        //    'location'         : 'top',
-        //    'background-color' : 'blue'
-        //}, options);
-        //
-        var init = (function () {
+
+        var sliding = (function () {
 
             var changeContent = function () {
 
@@ -88,15 +95,12 @@
                 }
             });
 
-        })(counter);
+        });
 
-
-        return {
-            init: init
-        };
-
-    }();
-
+        return this.each(sliding);
+    };
 
 })(jQuery);
+
+
 
