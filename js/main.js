@@ -5,84 +5,97 @@
     //============wow init===========================================
 
 
-    //===============slider ==========================================
+//==================================slider =================================
 
-    var sliderContent = $('.slider-content');
-    var sliderData = $('.slider-data');
-    var countSlide = $('.slider-data > div').length;
-    var counter = 1;
-    var sliders = []; // здесь будут хранится блоки с контентом
 
-    var sliderDots = $('.slider-dots');
-    var targetI = '';
-    var sliderWrap = $('.slider-wrapper');
+    $.fn.slider = function (options) {
+        var sliderContent = $('.slider-content');
+        var sliderData = $('.slider-data');
+        var countSlide = $('.slider-data > div').length;
+        var counter = 1;
+        var sliders = []; // здесь будут хранится блоки с контентом
 
-    var optionsSlider = {
-        from: 'fa-circle-o',
-        to: 'fa-circle-o',
-        animation: 'tada'
-    };
+        var sliderDots = $('.slider-dots');
+        var targetI = '';
+        var sliderWrap = $('.slider-wrapper');
 
-    var sliderInit = (function () {
+        var optionsSlider = {
+            from: 'fa-circle-o',
+            to: 'fa-circle-o',
+            animation: 'tada'
+        };
 
-        for (var i = 1; i <= countSlide; i++) {
-            sliders[i] = sliderData.find('.slider' + i);
-            sliderDots.append('<i class="fa fa-circle-o" id=num-' + i + '></i>')
-        }
+        var timerId = setInterval(function () {
+            $('#num-' + counter).trigger('click')
+        }, 7000);
 
-        sliderWrap.css('background-image', 'url("img/slider/' + counter + '.jpg")');
-        sliderContent.html(sliders[counter]);
-        counter++;
+        // Создаете настройки по умолчанию, которые расширяют ваши опции
+        //var settings = $.extend( {
+        //    'location'         : 'top',
+        //    'background-color' : 'blue'
+        //}, options);
+        //
+        var init = (function () {
 
-        sliderDots.find('i').first().addClass('active');
+            var changeContent = function () {
 
-    })(counter);
+                sliderContent.html(sliders[counter]);
+                if (counter >= countSlide) {
+                    counter = 1;
+                } else {
+                    counter++;
+                }
+            };
 
-    var changeContent = function () {
 
-        sliderContent.html(sliders[counter]);
-        if (counter >= countSlide) {
-            counter = 1;
-        } else {
+            for (var i = 1; i <= countSlide; i++) {
+                sliders[i] = sliderData.find('.slider' + i);
+                sliderDots.append('<i class="fa fa-circle-o" id=num-' + i + '></i>')
+            }
+
+            sliderWrap.css('background-image', 'url("img/slider/' + counter + '.jpg")');
+            sliderContent.html(sliders[counter]);
             counter++;
-        }
-    };
 
-    sliderDots.on('click', function (e) {
+            sliderDots.find('i').first().addClass('active');
 
-        targetI = e.target.id.slice(4);
+            sliderDots.on('click', function (e) {
 
-        clearTimeout(timerId);
+                targetI = e.target.id.slice(4);
 
-        if (targetI !== '') {
+                clearTimeout(timerId);
 
-            var dotSlider = document.getElementById('num-' + targetI);
-            iconate(dotSlider, optionsSlider);
+                if (targetI !== '') {
 
-            sliderDots.find('i').filter('.active').removeClass('active');
-            $('#num-' + targetI).addClass('active');
+                    var dotSlider = document.getElementById('num-' + targetI);
+                    iconate(dotSlider, optionsSlider);
 
-            sliderContent.animate({right: '60%'}, 1000, 'easeInOutBack', function () {
+                    sliderDots.find('i').filter('.active').removeClass('active');
+                    $('#num-' + targetI).addClass('active');
 
-                changeContent(targetI);
-                sliderWrap.css('background-image', 'url("img/slider/' + targetI + '.jpg")');
+                    sliderContent.animate({right: '60%'}, 1000, 'easeInOutBack', function () {
 
-                $(this).removeClass('bounceInLeft').removeClass('animated')
-                    .animate({right: 0}, 1000, 'easeInOutBack').stop(false, true);
+                        changeContent(targetI);
+                        sliderWrap.css('background-image', 'url("img/slider/' + targetI + '.jpg")');
+
+                        $(this).removeClass('bounceInLeft').removeClass('animated')
+                            .animate({right: 0}, 1000, 'easeInOutBack').stop(false, true);
+                    });
+
+                    timerId = setInterval(function () {
+                        $('#num-' + counter).trigger('click')
+                    }, 7000);
+                }
             });
 
-            timerId = setInterval(function () {
-                $('#num-' + counter).trigger('click')
-            }, 7000);
-        }
-    });
-
-    var timerId = setInterval(function () {
-        $('#num-' + counter).trigger('click')
-    }, 7000);
+        })(counter);
 
 
-//==================================slider =================================
+        return {
+            init: init
+        };
+
+    }();
 
 
 })(jQuery);
