@@ -1,26 +1,18 @@
 (function ($) {
 
-    //============wow init===========================================
-
-    //============wow init===========================================
-
-
-//==================================slider =================================
-
-
     $.fn.sliderIconate = function (options) {
 
+        //============wow init===========================================
         new WOW().init();
+        //============wow init===========================================
 
+        var settings = $.extend( {
+            'location'         : 'top',
+            'background-color' : 'blue'
+        }, options);
 
-        //var settings = $.extend( {
-        //    'location'         : 'top',
-        //    'background-color' : 'blue'
-        //}, options);
-        //
+        var self = this;
 
-
-        var sliderContent = $('.slider-content');
         var sliderData = $('.slider-data');
         var countSlide = $('.slider-data > div').length;
         var counter = 1;
@@ -46,7 +38,7 @@
 
             var changeContent = function () {
 
-                sliderContent.html(sliders[counter]);
+                self.html(sliders[counter]);
                 if (counter >= countSlide) {
                     counter = 1;
                 } else {
@@ -61,7 +53,7 @@
             }
 
             sliderWrap.css('background-image', 'url("img/slider/' + counter + '.jpg")');
-            sliderContent.html(sliders[counter]);
+            self.html(sliders[counter]);
             counter++;
 
             sliderDots.find('i').first().addClass('active');
@@ -80,7 +72,7 @@
                     sliderDots.find('i').filter('.active').removeClass('active');
                     $('#num-' + targetI).addClass('active');
 
-                    sliderContent.animate({right: '60%'}, 1000, 'easeInOutBack', function () {
+                    self.animate({right: '60%'}, 1000, 'easeInOutBack', function () {
 
                         changeContent(targetI);
                         sliderWrap.css('background-image', 'url("img/slider/' + targetI + '.jpg")');
