@@ -1,3 +1,7 @@
+h1 {
+    text-align: center;
+}
+
 /*==============style slider=======*/
 .slider-wrapper {
     z-index: 2;
