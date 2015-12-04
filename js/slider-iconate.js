@@ -75,7 +75,7 @@
 
                     sliderContent.animate({right: '60%'}, 1000, settings.effectAnimate, function () {
 
-                        changeContent(targetI);
+                        changeContent(--targetI);
                         self.css('background-image', 'url("img/slider/' + targetI + '.jpg")');
 
                         $(this).animate({right: 0}, 1000, settings.effectAnimate).stop(false, true);
