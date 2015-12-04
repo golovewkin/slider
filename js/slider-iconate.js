@@ -61,9 +61,9 @@
 
             sliderDots.on('click', function (e) {
 
-                targetI = e.target.id.slice(4);
 
-                clearTimeout(timerId);
+                targetI = e.target.id.slice(4);
+                counter = targetI;
 
                 if (targetI !== '') {
 
@@ -81,6 +81,7 @@
                         $(this).animate({right: 0}, 1000, settings.effectAnimate).stop(false, true);
                     });
 
+                    clearTimeout(timerId);
                     autosliding()
                 }
             });
